@@ -10,4 +10,21 @@ router.get('/', (request, response) => {
 
 router.use('/contacts', contacts); // /contacts/search
 
+// route for user login
+router.get('/login', (request, response) => {
+  response.render('login')
+})
+
+router.post('/login', (request, response) => {
+  response.render('login')
+})
+
+router.get('/signup', (request, response) => {
+  response.render('signup')
+})
+
+router.post('/signup', (request, response) => {
+  response.render('signup')
+})
+
 module.exports = router;
