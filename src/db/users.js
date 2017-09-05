@@ -1,19 +1,28 @@
 const db = require('./db')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
-const createUser = function(contact){
-  return db.query(`
-    INSERT INTO
+function saltedPassword(plainTextPassword, saltRounds) {
+  bcrypt.hash(myPlaintextPassword, saltRounds)
+}
+
+const createUser = function(user){
+  saltedPassword(user.password, saltRounds)
+  .then(hash => {
+    return db.query(`
+      INSERT INTO
       users (username, password)
-    VALUES
+      VALUES
       ($1::text, $2::text)
-    RETURNING
+      RETURNING
       *
-    `,
-    [
-      user.username,
-      user.password,
-    ])
-    .catch(error => error);
+      `,
+      [
+        user.username,
+        hash,
+      ])
+      .catch(error => error);
+  })
 }
 
 const getUser = function(userId){
