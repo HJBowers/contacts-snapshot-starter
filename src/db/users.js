@@ -16,16 +16,6 @@ const createUser = function(contact){
     .catch(error => error);
 }
 
-const getUsers = function(){
-  return db.query(`
-    SELECT
-      *
-    FROM
-      users
-    `, [])
-    .catch(error => error);
-}
-
 const getUser = function(userId){
   return db.one(`
     SELECT * FROM users WHERE id=$1::int
@@ -47,7 +37,6 @@ const deleteUser = function(userId){
 
 module.exports = {
   createUser,
-  getUsers,
   getUser,
   deleteUser
 }
