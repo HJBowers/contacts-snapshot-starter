@@ -9,5 +9,6 @@ CREATE TABLE contacts (
 CREATE TABLE users (
   id serial,
   username varchar(255) NOT NULL,
-  password varchar(255) NOT NULL
+  password varchar(255) NOT NULL,
+  admin boolean DEFAULT FALSE
 );
