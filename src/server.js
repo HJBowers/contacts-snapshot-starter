@@ -2,8 +2,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const methodOverride = require('method-override')
-const routes = require('./server/routes');
-const middlewares = require('./server/middlewares');
+const routes = require('./server/routes')
+const middlewares = require('./server/middlewares')
+const users = require('./models/users')
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')
