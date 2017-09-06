@@ -1,8 +1,8 @@
-<%- include partials/header.ejs %>
+<%- include ../partials/header.ejs %>
 
   <h1>Sign up</h1>
 
-  <form method="post" action="/login" class="signup-form">
+  <form method="post" action="/signup" class="signup-form">
     <p>
       <label>
         <span>Username:</span>
@@ -18,8 +18,7 @@
     <p>
     <label>
         <span>Role:</span>
-        <input type="radio" name="role" value="regular" checked> Regular
-        <input type="radio" name="role" value="admin"> Admin<br>
+        <input type="checkbox" name="admin" value="true"> Admin<br>
       </label>
     </p>
     <input type="submit" value="Sign up">
@@ -28,4 +27,4 @@
     Already have an account? <a href="/login">Log in</a>
   </p>
 
-<%- include footer.ejs %>
+<%- include ../partials/footer.ejs %>

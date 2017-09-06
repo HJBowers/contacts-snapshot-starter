@@ -11,9 +11,17 @@ const notFoundHandler = (request, response) => {
   response.status(404).render('common/not_found', {name: 'Foobar'})
 }
 
+const sessionChecker = (request, response, next) => {
+  if (!(request.session.user_sid && request.session.user)) {
+    response.redirect('/login')
+  } else {
+    next()
+  }
+}
+
 const setDefaultResponseLocals = (request, response, next) => {
   response.locals.query = ''
   next()
 }
 
-module.exports = { errorHandler, logErrors, notFoundHandler, setDefaultResponseLocals };
+module.exports = { errorHandler, logErrors, notFoundHandler, sessionChecker, setDefaultResponseLocals };

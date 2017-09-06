@@ -1,48 +1,64 @@
 const db = require('./db')
 
-const create = function(user){
+const create = function(username, password, admin){
   return db.query(`
     INSERT INTO
-      users (username, password, role)
+      users (username, password, admin)
     VALUES
       ($1::text, $2::text, $3)
     RETURNING
       *
     `,
     [
-      user.username,
-      user.password,
-      user.role
+      username,
+      password,
+      admin
     ])
     .catch(error => {
       console.error({message: 'Error occurred while executing users.create',
-                     arguments: arguments});
+                     arguments: arguments})
       throw error
-    });
+    })
 }
 
 const findById = function(userId){
   return db.any(`
-    SELECT * FROM users WHERE id=$1::int LIMIT 1
+    SELECT * FROM users WHERE id=$1::int
     `,
     [userId])
-    .then( users => users[0])
+    .then( user => user[0])
     .catch(error => {
       console.error({message: 'Error occurred while executing users.findById',
-                     arguments: arguments});
-      throw error});
+                     arguments: arguments})
+      throw error})
 }
 
 const findByUsername = function(username){
   return db.any(`
-    SELECT * FROM users WHERE username=$1::int LIMIT 1
+    SELECT id FROM users WHERE username=$1
     `,
     [username])
-    .then( users => users[0])
+    .then( user => user[0])
     .catch(error => {
       console.error({message: 'Error occurred while executing users.findByUsername',
                      arguments: arguments});
-      throw error});
+      throw error})
+}
+
+const isValidPassword = function(userId, password) {
+  findById(userId)
+  .then(user => {
+    console.log( 'user::', user )
+    return true
+  })
+  .catch(error => {
+    console.error({message: 'Error occurred while executing users.isValidPassword',
+                   arguments: arguments});
+    throw error})
+  // .then(user => {
+  //   bcrypt.compare(password, saltedPassword)
+  // })
+  // .then(res => res)
 }
 
 const destroy = function(userId){
@@ -55,13 +71,14 @@ const destroy = function(userId){
     [userId])
     .catch(error => {
       console.error({message: 'Error occurred while executing users.destroy',
-                     arguments: arguments});
-      throw error});
+                     arguments: arguments})
+      throw error})
 }
 
 module.exports = {
   create,
   findById,
   findByUsername,
+  isValidPassword,
   destroy
 }
