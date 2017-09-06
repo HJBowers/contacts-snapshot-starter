@@ -46,18 +46,11 @@ const findByUsername = function(username){
 }
 
 const isValidPassword = function(userId, password) {
-  findById(userId)
+  return findById(userId)
   .then(user => {
-    console.log( 'user::', user )
     return true
+    // bcrypt.compare(password, saltedPassword)
   })
-  .catch(error => {
-    console.error({message: 'Error occurred while executing users.isValidPassword',
-                   arguments: arguments});
-    throw error})
-  // .then(user => {
-  //   bcrypt.compare(password, saltedPassword)
-  // })
   // .then(res => res)
 }
 

@@ -6,12 +6,14 @@ const methodOverride = require('method-override')
 const routes = require('./server/routes')
 const middlewares = require('./server/middlewares')
 const users = require('./models/users')
+const cookieParser = require('cookie-parser')
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 app.use(methodOverride('_method'))
 
@@ -47,9 +49,7 @@ app.route('/login')
       } else {
         users.isValidPassword(user.id, password)
         .then((valid) => {
-          console.log( 'valid::', valid )
           if (valid) {
-            request.session.
             request.session.user = user.id
             response.redirect('/')
           } else {
@@ -67,7 +67,6 @@ app.route('/signup')
   })
   .post((request, response) => {
     const { username, password, admin } = request.body
-    console.log( 'request.body::', request.body )
     users.create(username, password, admin)
     response.redirect('/login')
   })
