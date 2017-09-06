@@ -12,6 +12,7 @@ const notFoundHandler = (request, response) => {
 }
 
 const sessionChecker = (request, response, next) => {
+  console.log( 'sessionChecker::' )
   if (!(request.cookies.user_sid && request.session.user)) {
     response.redirect('/login')
   } else {

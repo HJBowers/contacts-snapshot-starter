@@ -1,12 +1,12 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const app = express()
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const methodOverride = require('method-override')
 const routes = require('./server/routes')
 const middlewares = require('./server/middlewares')
 const users = require('./models/users')
-const cookieParser = require('cookie-parser')
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')
