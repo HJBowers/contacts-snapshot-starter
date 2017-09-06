@@ -1,24 +1,28 @@
 const db = require('./db')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 const create = function(username, password, admin){
-  return db.query(`
-    INSERT INTO
+  bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
+    return db.query(`
+      INSERT INTO
       users (username, password, admin)
-    VALUES
+      VALUES
       ($1::text, $2::text, $3)
-    RETURNING
+      RETURNING
       *
-    `,
-    [
-      username,
-      password,
-      admin
-    ])
-    .catch(error => {
-      console.error({message: 'Error occurred while executing users.create',
-                     arguments: arguments})
-      throw error
-    })
+      `,
+      [
+        username,
+        hash,
+        admin
+      ])
+      .catch(error => {
+        console.error({message: 'Error occurred while executing users.create',
+        arguments: arguments})
+        throw error
+      })
+  })
 }
 
 const findById = function(userId){
@@ -48,10 +52,8 @@ const findByUsername = function(username){
 const isValidPassword = function(userId, password) {
   return findById(userId)
   .then(user => {
-    return true
-    // bcrypt.compare(password, saltedPassword)
+    return bcrypt.compare(password, user.password)
   })
-  // .then(res => res)
 }
 
 const destroy = function(userId){
