@@ -38,13 +38,16 @@ app.use(session(sess))
 
 app.route('/login')
   .get((request, response) => {
+    // response.locals.message = 'test'
     response.render('users/login')
   })
-  .post((request, response) => {
+  .post((request, response, next) => {
     const { username, password } = request.body
     users.findByUsername(username)
-    .then((user) => {
+    .then((records) => {
+      const user = records[0]
       if (!user) {
+        response.locals.message = 'That user does not exist, how about signing up?'
         response.redirect('/login')
       } else {
         users.isValidPassword(user.id, password)
@@ -53,7 +56,7 @@ app.route('/login')
             request.session.user = user.id
             response.redirect('/')
           } else {
-            response.redirect('/login')
+            response.redirect('/login', { message: 'Invalid username/password combination. Please try again.'})
           }
         })
       }
@@ -75,6 +78,8 @@ app.use(middlewares.sessionChecker)
 
 app.use('/', routes)
 
+app.use(middlewares.logErrors)
+app.use(middlewares.errorHandler)
 app.use((request, response) => {
   response.render('common/not_found')
 })

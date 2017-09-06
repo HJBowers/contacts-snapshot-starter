@@ -23,6 +23,11 @@
     </p>
     <input type="submit" value="Sign up">
   </form>
+  <%if (message) {%>
+    <p>
+      <%= message %>
+    </p>
+  <% } %>
   <p>
     Already have an account? <a href="/login">Log in</a>
   </p>

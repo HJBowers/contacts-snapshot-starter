@@ -42,7 +42,6 @@ const findByUsername = function(username){
     SELECT id FROM users WHERE username=$1
     `,
     [username])
-    .then( user => user[0])
     .catch(error => {
       console.error({message: 'Error occurred while executing users.findByUsername',
                      arguments: arguments});
