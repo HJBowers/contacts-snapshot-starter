@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const app = express()
+const session = ('express-session')
 const methodOverride = require('method-override')
 const routes = require('./server/routes')
 const middlewares = require('./server/middlewares')
@@ -15,6 +17,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(methodOverride('_method'))
 
 app.use(middlewares.setDefaultResponseLocals)
+
+app.route('/login')
+  .get((req, res) => {
+    res.render('users/login')
+  })
+  .post((req, res) => {
+
+  })
 
 app.use('/', routes)
 
