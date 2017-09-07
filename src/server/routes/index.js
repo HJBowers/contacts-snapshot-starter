@@ -7,7 +7,7 @@ const users = require('../../models/users')
 router.route('/login')
   .get((request, response) => {
     const message = request.session.message
-    response.render('users/login', { message })
+    response.render('users/login', { message, admin: false })
   })
   .post((request, response, next) => {
     const { username, password } = request.body
@@ -36,7 +36,7 @@ router.route('/login')
 
 router.route('/signup')
   .get((request, response) => {
-    response.render('users/signup')
+    response.render('users/signup', { admin: false })
   })
   .post((request, response) => {
     const { username, password, admin } = request.body
@@ -47,8 +47,11 @@ router.route('/signup')
 router.use(middlewares.sessionChecker)
 
 router.get('/', (request, response, next) => {
+  const admin = request.session.user.admin || null
   contacts.findAll()
-    .then((contacts) => {response.render('contacts/index', { contacts })})
+    .then((contacts) => {
+      response.render('contacts/index', { contacts, admin })
+    })
     .catch( error => next(error) )
 })
 

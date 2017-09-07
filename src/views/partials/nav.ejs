@@ -4,7 +4,7 @@
     <input name="q" type="search" placeholder="search" value="<%= query %>" autofocus/>
     <input type="submit" style="display: none" />
   </form>
-
+  <% if (admin) { %>
     <a href="/contacts/new">New Contact</a>
-
+  <% } %>
 </nav>

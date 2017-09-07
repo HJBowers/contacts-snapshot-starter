@@ -1,5 +1,5 @@
 const errorHandler = (error, request, response, next) => {
-  response.status(500).render('common/error');
+  response.status(500).render('common/error', { admin: null });
 };
 
 const logErrors = (error, request, response, next) => {
@@ -8,7 +8,7 @@ const logErrors = (error, request, response, next) => {
 };
 
 const notFoundHandler = (request, response) => {
-  response.status(404).render('common/not_found', {name: 'Foobar'})
+  response.status(404).render('common/not_found', {name: 'Foobar', admin: null})
 }
 
 const sessionChecker = (request, response, next) => {

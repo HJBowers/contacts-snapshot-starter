@@ -8,7 +8,6 @@
 4. Run the server: `nodemon`
 
 
-
 ## Specifications
 
 #### Authentication
@@ -30,7 +29,7 @@
 - [x] Only a user with an admin role should be able to create a new contact.
 - [x] If the logged in user is not an admin, going to the route /contacts/new should return a status code 403.
 - [x] Only a user with an admin role should be able to delete a contact.
-- [ ] If the logged in user is not an admin, going to the route /contacts/delete/:contactId should return a status code 403. The delete links on the page should not be shown if the logged in user is not an admin.
+- [x] If the logged in user is not an admin, going to the route /contacts/delete/:contactId should return a status code 403. The delete links on the page should not be shown if the logged in user is not an admin.
 
 ## Stretch Specs
 - [ ] If you use express-session, use a persistent session store https://www.npmjs.com/package/connect-pg-simple to store the sessions (instead of the default in memory store that express-session uses)

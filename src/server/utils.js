@@ -3,7 +3,7 @@ const renderError = function(error, response, response){
 }
 
 const renderUnauthorized = function(response, error) {
-  response.status(403).render('common/unauthorized', { error })
+  response.status(403).render('common/unauthorized', { error, admin: null })
 }
 
 module.exports = {renderError, renderUnauthorized}
