@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS contacts;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS session;
 
 CREATE TABLE contacts (
   id serial PRIMARY KEY,
@@ -13,3 +14,11 @@ CREATE TABLE users (
   password varchar(255) NOT NULL,
   admin boolean DEFAULT FALSE NOT NULL
 );
+
+CREATE TABLE "session" (
+  "sid" varchar NOT NULL COLLATE "default",
+	"sess" json NOT NULL,
+	"expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;

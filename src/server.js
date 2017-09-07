@@ -21,7 +21,7 @@ app.use(middlewares.setDefaultResponseLocals)
 let sess = {
   key: 'user_sid',
   store: new (require('connect-pg-simple')(session))(),
-  secret: 'woofmeow',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
