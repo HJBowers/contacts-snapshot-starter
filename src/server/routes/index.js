@@ -4,6 +4,11 @@ const middlewares = require('../middlewares')
 const contacts = require('../../models/contacts')
 const users = require('../../models/users')
 
+router.get('/logout', (request, response) => {
+  request.session.destroy()
+  response.redirect('/')
+})
+
 router.route('/login')
   .get((request, response) => {
     const message = request.session.message
