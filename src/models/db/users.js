@@ -6,7 +6,7 @@ const create = function(username, password, admin){
   bcrypt.hash(password, saltRounds).then(function(hash) {
     return db.query(`
       INSERT INTO
-      users (username, password, admin)
+      users (lower(username), password, admin)
       VALUES
       ($1::text, $2::text, $3)
       RETURNING

@@ -11,7 +11,7 @@ router.route('/login')
   })
   .post((request, response, next) => {
     const { username, password } = request.body
-    users.findByUsername(username)
+    users.findByUsername(username.toLowerCase())
     .then((records) => {
       const user = records[0]
       if (!user) {
