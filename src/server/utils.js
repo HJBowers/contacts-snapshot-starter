@@ -2,8 +2,8 @@ const renderError = function(error, response, response){
   response.send(`ERROR: ${error.message}\n\n${error.stack}`)
 }
 
-const renderUnauthorized = function(response) {
-  response.status(403).send('You do not have access to this page.')
+const renderUnauthorized = function(response, error) {
+  response.status(403).render('common/unauthorized', { error })
 }
 
 module.exports = {renderError, renderUnauthorized}
