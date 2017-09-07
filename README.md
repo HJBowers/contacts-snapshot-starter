@@ -32,7 +32,7 @@
 - [x] If the logged in user is not an admin, going to the route /contacts/delete/:contactId should return a status code 403. The delete links on the page should not be shown if the logged in user is not an admin.
 
 ## Stretch Specs
-- [ ] If you use express-session, use a persistent session store https://www.npmjs.com/package/connect-pg-simple to store the sessions (instead of the default in memory store that express-session uses)
+- [x] If you use express-session, use a persistent session store https://www.npmjs.com/package/connect-pg-simple to store the sessions (instead of the default in memory store that express-session uses)
 - [ ] Add schema migrations for your database using https://github.com/theoephraim/node-pg-migrate
 - [ ] A user should be able to have more than one role. For example, a user can have roles reporter, and editor, which would give them access to the resources that are available to both those roles.
 

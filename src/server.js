@@ -6,6 +6,7 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const routes = require('./server/routes')
 const middlewares = require('./server/middlewares')
+const config = require('./config').makeConfig()
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')
@@ -21,7 +22,7 @@ app.use(middlewares.setDefaultResponseLocals)
 let sess = {
   key: 'user_sid',
   store: new (require('connect-pg-simple')(session))(),
-  secret: process.env.SESSION_SECRET,
+  secret: config.session.secret,
   resave: false,
   saveUninitialized: false,
   cookie: {
