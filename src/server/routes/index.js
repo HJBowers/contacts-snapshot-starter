@@ -5,8 +5,9 @@ const contacts = require('../../models/contacts')
 const users = require('../../models/users')
 
 router.get('/logout', (request, response) => {
-  request.session.destroy()
-  response.redirect('/')
+  request.session.destroy(() => {
+    response.redirect('/')
+  })
 })
 
 router.route('/login')
@@ -26,9 +27,11 @@ router.route('/login')
         users.isValidPassword(user.id, password)
         .then((valid) => {
           if (valid) {
-            request.session.message = null
-            request.session.user = user
-            response.redirect('/')
+            request.session.save(() => {
+                request.session.message = null
+                request.session.user = user
+                response.redirect('/')
+              })
           } else {
             request.session.message = 'Invalid username or password combination. Please try again.'
             response.redirect('/login')
