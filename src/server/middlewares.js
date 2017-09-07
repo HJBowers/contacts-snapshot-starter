@@ -1,5 +1,5 @@
 const errorHandler = (error, request, response, next) => {
-  response.status(500).send('Something bad happened. This page should be nicer looking');
+  response.status(500).render('common/error');
 };
 
 const logErrors = (error, request, response, next) => {
@@ -12,7 +12,6 @@ const notFoundHandler = (request, response) => {
 }
 
 const sessionChecker = (request, response, next) => {
-  console.log( 'sessionChecker::' )
   if (!(request.cookies.user_sid && request.session.user)) {
     response.redirect('/login')
   } else {

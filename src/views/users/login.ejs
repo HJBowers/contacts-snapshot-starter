@@ -16,6 +16,11 @@
     </p>
     <input type="submit" value="Login">
   </form>
+  <%if (message) {%>
+    <p>
+      <%= message %>
+    </p>
+  <% } %>
   <p>
     Need an account? <a href="/signup">Sign up here</a>
   </p>
