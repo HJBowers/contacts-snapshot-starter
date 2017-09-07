@@ -38,7 +38,6 @@ app.use(session(sess))
 
 app.route('/login')
   .get((request, response) => {
-    // response.locals.message = 'test'
     response.render('users/login')
   })
   .post((request, response, next) => {
@@ -53,10 +52,10 @@ app.route('/login')
         users.isValidPassword(user.id, password)
         .then((valid) => {
           if (valid) {
-            request.session.user = user.id
+            request.session.user = user
             response.redirect('/')
           } else {
-            response.redirect('/login', { message: 'Invalid username/password combination. Please try again.'})
+            response.redirect('/login')
           }
         })
       }

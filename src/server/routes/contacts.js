@@ -1,4 +1,6 @@
 const contacts = require('../../models/contacts')
+const { userHasAccess } = require('../../authorization')
+const { renderError, renderUnauthorized } = require('../utils')
 
 const router = require('express').Router()
 
@@ -7,12 +9,17 @@ router.get('/new', (request, response) => {
 })
 
 router.post('/', (request, response, next) => {
-  contacts.create(request.body)
+  const {user} = request.session
+  if(userHasAccess(user, 'createContact')) {
+    contacts.create(request.body)
     .then(function(contact) {
       if (contact) return response.redirect(`/contacts/${contact[0].id}`)
       next()
     })
     .catch( error => next(error) )
+  } else {
+    renderUnauthorized(response)
+  }
 })
 
 router.get('/:contactId', (request, response, next) => {
@@ -28,13 +35,19 @@ router.get('/:contactId', (request, response, next) => {
 
 
 router.delete('/:contactId', (request, response, next) => {
-  const contactId = request.params.contactId
-  contacts.destroy(contactId)
-    .then(function(contact) {
-      if (contact) return response.redirect('/')
-      next()
-    })
-    .catch( error => next(error) )
+  const {user} = request.session
+  console.log( 'userHasAccess::', userHasAccess(user, 'deleteContact' ))
+  if(userHasAccess(user, 'deleteContact')) {
+    const contactId = request.params.contactId
+    contacts.destroy(contactId)
+      .then(function(contact) {
+        if (contact) return response.redirect('/')
+        next()
+      })
+      .catch( error => next(error) )
+  } else {
+    renderUnauthorized(response)
+  }
 })
 
 router.get('/search', (request, response, next) => {

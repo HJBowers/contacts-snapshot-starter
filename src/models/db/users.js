@@ -39,7 +39,7 @@ const findById = function(userId){
 
 const findByUsername = function(username){
   return db.any(`
-    SELECT id FROM users WHERE username=$1
+    SELECT * FROM users WHERE username=$1
     `,
     [username])
     .catch(error => {

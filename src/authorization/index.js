@@ -15,3 +15,5 @@ const userHasAccess = (user, action) => {
     return capabilities.includes('admin')
   }
 }
+
+module.exports = { userHasAccess }
