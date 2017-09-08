@@ -24,6 +24,8 @@
     "express": "^4.15.2",
     "express-session": "^1.15.5",
     "method-override": "^2.3.9",
+    "node-pg-migrate": "^2.8.1",
+    "pg": "^7.3.0",
     "pg-promise": "^6.2.1"
   },
   "devDependencies": {
