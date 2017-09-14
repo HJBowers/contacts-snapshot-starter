@@ -15,7 +15,7 @@ describe('/', () => {
     return dbHelper()
   })
 
-  it('should return a 200 status code and checks that the correct page is rendered', () => {
+  it('should return a 200 status code and checks that the index page is rendered', () => {
     var spy = sinon.spy(ejs, '__express')
 
     return supertest(app)
@@ -27,5 +27,23 @@ describe('/', () => {
       spy.restore()
     })
   })
+})
 
+describe('/contacts/new', () => {
+  beforeEach('truncate the DB', () => {
+    return dbHelper()
+  })
+
+  it('should return a 200 status code and checks that the new page is rendered', () => {
+    var spy = sinon.spy(ejs, '__express')
+
+    return supertest(app)
+    .get('/contacts/new')
+    .expect(200)
+    .then(res => {
+      //console.log(spy);
+      expect(spy.calledWith(path.resolve(__dirname + '/../../src/views/new.ejs'))).to.be.true
+      spy.restore()
+    })
+  })
 })
