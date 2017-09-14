@@ -55,6 +55,7 @@ describe('/contacts', () => {
       last_name: 'Cat'
     })
     .then( (res) => {
+      console.log("TEST:::", res.headers);
       expect(res.headers.location).to.equal('/contacts/4')
       expect(res).to.have.status(302)
       expect(res).to.redirect
