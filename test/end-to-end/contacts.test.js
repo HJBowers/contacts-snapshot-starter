@@ -79,7 +79,6 @@ describe('/contacts/:contactId', () => {
   })
 })
 
-
 describe('/contacts/:contactId/delete', () => {
   beforeEach('truncate the DB', () => {
     return dbTruncate()
@@ -95,7 +94,7 @@ describe('/contacts/:contactId/delete', () => {
   })
 })
 
-describe.only('/search', () => {
+describe('/search', () => {
   beforeEach('truncate the DB', () => {
     return dbTruncate()
   })
