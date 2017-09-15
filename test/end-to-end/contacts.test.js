@@ -83,7 +83,7 @@ describe('/contacts/:contactId/delete', () => {
   beforeEach('truncate the DB', () => {
     return dbTruncate()
   })
-  it('should have a body with new contact, and database length should increase by 1', () => {
+  it('should delete contact by id, responds with empty body', () => {
     return supertest(app)
     .delete('/contacts/1/delete')
     return supertest(app)

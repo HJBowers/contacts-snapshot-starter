@@ -10,7 +10,7 @@
     "load_schema": "psql -d contacts_development < src/db/schema/schema.sql",
     "load_contacts": "psql -d contacts_development < test/seed/contacts.sql",
     "test:db": "createdb contacts_test; psql -d contacts_test < src/db/schema/schema.sql",
-    "test": "./node_modules/.bin/mocha test/end-to-end/contacts.test.js"
+    "test": "mocha test --recursive"
   },
   "keywords": [],
   "author": "",
